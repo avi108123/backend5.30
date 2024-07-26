@@ -31,12 +31,3 @@ server.listen(8000, () => {
 
 
 
-// function firstMiddleware(req, res, next) {
-//     console.log("you are in firstMiddleware");
-//     next();
-//   }
-  
-//   function secondMiddleware(req, res, next) {
-//     console.log("you are in secondMiddleware");
-//     next();
-//   }

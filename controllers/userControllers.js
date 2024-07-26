@@ -1,5 +1,5 @@
 const Users = require("../model/userModel");
-
+const bcrypt = require("bcryptjs")
 const{validationResult} = require("express-validator")
 
 async function getAllUsers(req,res){
@@ -32,7 +32,10 @@ async function registerUser(req,res){
          return res.send("you are already registered please login")
         }
     
-        let newUser = await Users.create(data);
+         let hashpassword =  bcrypt.hashSync(data.password,10);
+
+      
+        let newUser = await Users.create({...data,password:hashpassword});
         res.send(newUser);
       } catch (error) {
         res.send(error);
@@ -50,11 +53,13 @@ async function loginUser(req,res){
   }
 
 
-  if(data.password!=existingUser.password){
+  let result = bcrypt.compareSync(data.password,existingUser.password);
+
+  
+  if(!result){
     return res.send("wrong password")
   }
 
-  
   res.send(existingUser);
 
 }
@@ -63,6 +68,15 @@ async function loginUser(req,res){
 module.exports = {getAllUsers,registerUser,loginUser}
 
 
+
+
+
+
+
+
+// 12345 =>sldkjg;laksdjg;kha;sdjkglasdj;lkj;glakd
+
+// 12345 =>sldkjg;laksdjg;kha;sdjkglasdj;lkj;glakd 
 
 
 
