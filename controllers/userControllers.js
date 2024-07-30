@@ -1,7 +1,7 @@
 const Users = require("../model/userModel");
 const bcrypt = require("bcryptjs")
 const{validationResult} = require("express-validator")
-
+const jwt = require("jsonwebtoken")
 async function getAllUsers(req,res){
         let data = await Users.find();
         res.send(data);
@@ -43,8 +43,6 @@ async function registerUser(req,res){
 }
 
 
-
-
 async function loginUser(req,res){
     let data = req.body;
     let existingUser = await Users.findOne({email:data.email})
@@ -60,7 +58,11 @@ async function loginUser(req,res){
     return res.send("wrong password")
   }
 
-  res.send(existingUser);
+
+  let token = jwt.sign({userId:existingUser._id},"thisisyoursecretkey",{expiresIn:"30d"})
+
+
+  res.send({existingUser,token});
 
 }
 
