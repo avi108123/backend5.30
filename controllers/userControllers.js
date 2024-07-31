@@ -76,9 +76,7 @@ module.exports = {getAllUsers,registerUser,loginUser}
 
 
 
-// 12345 =>sldkjg;laksdjg;kha;sdjkglasdj;lkj;glakd
 
-// 12345 =>sldkjg;laksdjg;kha;sdjkglasdj;lkj;glakd 
 
 
 
